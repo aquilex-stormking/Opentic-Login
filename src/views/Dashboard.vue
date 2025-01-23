@@ -131,19 +131,19 @@ export default {
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
     
-    console.log('userData:', this.modulosRol);
+    // console.log('userData:', this.modulosRol);
     this.cities = this.modulosRol;
 
     // Validar y activar submenús
-    this.showAdminUsers = this.modulosRol.some(op => op.name === 'Administrar usuarios');
-    console.log('showAdminUsers:', this.showAdminUsers);
-    this.showAdminProfiles = this.modulosRol.some(op => op.name === 'Administrar perfiles');
-    this.showAdminOperations = this.modulosRol.some(op => op.name === 'Administrar operaciones');
-    this.showDistribution = this.modulosRol.some(op => op.name === 'Distribución y Envío');
-    this.showMassReassignment = this.modulosRol.some(op => op.name === 'Reasignación masiva');
-    this.showAnnulment = this.modulosRol.some(op => op.name === 'Anulación');
-    this.showStandardFiling = this.modulosRol.some(op => op.name === 'Radicación estándar');
-    this.showEmailFiling = this.modulosRol.some(op => op.name === 'Radicación correo e.');
+    // this.showAdminUsers = this.modulosRol.some(op => op.name === 'Administrar usuarios');
+    // console.log('showAdminUsers:', this.showAdminUsers);
+    // this.showAdminProfiles = this.modulosRol.some(op => op.name === 'Administrar perfiles');
+    // this.showAdminOperations = this.modulosRol.some(op => op.name === 'Administrar operaciones');
+    // this.showDistribution = this.modulosRol.some(op => op.name === 'Distribución y Envío');
+    // this.showMassReassignment = this.modulosRol.some(op => op.name === 'Reasignación masiva');
+    // this.showAnnulment = this.modulosRol.some(op => op.name === 'Anulación');
+    // this.showStandardFiling = this.modulosRol.some(op => op.name === 'Radicación estándar');
+    // this.showEmailFiling = this.modulosRol.some(op => op.name === 'Radicación correo e.');
   
     
   },
