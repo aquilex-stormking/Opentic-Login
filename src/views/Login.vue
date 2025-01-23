@@ -85,7 +85,8 @@ export default {
           login();
           localStorage.setItem('userData', JSON.stringify(json.data));
           localStorage.setItem('username', json.data.nombre);
-          this.$router.push({ name: 'Dashboard', query: { username: json.data.nombre } });
+          console.log("json",json.data.operaciones);
+          this.$router.push({ name: 'Dashboard' });
         }
       }).catch(error => {
         this.showError();

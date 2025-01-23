@@ -54,21 +54,29 @@ export default {
       dialogPosition: "center", // Posición del Dialog
       modulosRol: [],
       items: [
-        // {
-        //   label: 'Home',
-        //   icon: 'pi pi-fw pi-home',
-        //   command: () => { this.$router.push('/'); }
-        // },
-        // {
-        //   label: 'Profile',
-        //   icon: 'pi pi-fw pi-user',
-        //   command: () => { this.$router.push('/profile'); }
-        // },
-        // {
-        //   label: 'Settings',
-        //   icon: 'pi pi-fw pi-cog',
-        //   command: () => { this.$router.push('/settings'); }
-        // }
+        {
+          label: 'Usuarios',
+          items: [
+            { label: 'Administrar usuarios', icon: 'pi pi-fw pi-user', command: () => { this.$router.push('/users-index/false'); }, visible: this.showAdminUsers },
+            { label: 'Administrar perfiles', icon: 'pi pi-fw pi-users', command: () => { this.$router.push('/roles-index'); }, visible: this.showAdminProfiles },
+            { label: 'Administrar operaciones', icon: 'pi pi-fw pi-cog', command: () => { this.$router.push('/operations-index'); }, visible: this.showAdminOperations }
+          ]
+        },
+        {
+          label: 'Correspondencia',
+          items: [
+            { label: 'Distribución y Envío', icon: 'pi pi-fw pi-send', command: () => { this.$router.push('/distribution-shipping-index'); }, visible: this.showDistribution },
+            { label: 'Reasignación masiva', icon: 'pi pi-fw pi-check-square', command: () => { this.$router.push('/mass-reassignment-index'); }, visible: this.showMassReassignment },
+            { label: 'Anulación', icon: 'pi pi-fw pi-ban', command: () => { this.$router.push('/annulment-index'); }, visible: this.showAnnulment }
+          ]
+        },
+        {
+          label: 'Radicación',
+          items: [
+            { label: 'Radicación estándar', icon: 'pi pi-fw pi-file', command: () => { this.$router.push('/filing-index/false'); }, visible: this.showStandardFiling },
+            { label: 'Radicación correo e.', icon: 'pi pi-fw pi-envelope', command: () => { this.$router.push('/filing-email-index'); }, visible: this.showEmailFiling }
+          ]
+        }
       ],
       menuItems: [
         {
@@ -87,6 +95,14 @@ export default {
           command: () => { this.$router.push('/help'); }
         }
       ],
+      showAdminUsers: false, // Condición para mostrar 'Administrar usuarios'
+      showAdminProfiles: false, // Condición para mostrar 'Administrar perfiles'
+      showAdminOperations: false, // Condición para mostrar 'Administrar operaciones'
+      showDistribution: false, // Condición para mostrar 'Distribución y Envío'
+      showMassReassignment: false, // Condición para mostrar 'Reasignación masiva'
+      showAnnulment: false, // Condición para mostrar 'Anulación'
+      showStandardFiling: false, // Condición para mostrar 'Radicación estándar'
+      showEmailFiling: false,
       username: localStorage.getItem('username') || 'Usuario',
       userData: JSON.parse(localStorage.getItem('userData')) || {},
       selectedCity: null,
@@ -109,13 +125,27 @@ export default {
     // Agrega los items del menú al Menubar
     // this.modulosRol = this.userData.operaciones.map(op => op.moduloRolOperacion);
     this.modulosRol = this.userData.operaciones
-  .map(op => ({
-    name: op.moduloRolOperacion,
-    code: op.nombreRolOperacion,
-  }))
-  .sort((a, b) => a.name.localeCompare(b.name));
-    console.log('userData:',this.modulosRol);
+      .map(op => ({
+        name: op.moduloRolOperacion,
+        code: op.nombreRolOperacion.split('%')[0],
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    
+    console.log('userData:', this.modulosRol);
     this.cities = this.modulosRol;
+
+    // Validar y activar submenús
+    this.showAdminUsers = this.modulosRol.some(op => op.name === 'Administrar usuarios');
+    console.log('showAdminUsers:', this.showAdminUsers);
+    this.showAdminProfiles = this.modulosRol.some(op => op.name === 'Administrar perfiles');
+    this.showAdminOperations = this.modulosRol.some(op => op.name === 'Administrar operaciones');
+    this.showDistribution = this.modulosRol.some(op => op.name === 'Distribución y Envío');
+    this.showMassReassignment = this.modulosRol.some(op => op.name === 'Reasignación masiva');
+    this.showAnnulment = this.modulosRol.some(op => op.name === 'Anulación');
+    this.showStandardFiling = this.modulosRol.some(op => op.name === 'Radicación estándar');
+    this.showEmailFiling = this.modulosRol.some(op => op.name === 'Radicación correo e.');
+  
+    
   },
   methods: {
     handleLogout() {
